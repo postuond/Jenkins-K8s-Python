@@ -1,6 +1,6 @@
 #!/bin/bash
 
-helm delete devopsjenkins
+CHECK=$(kubectl get pods | awk '{print $1}' | grep -e "sample-app")
 
 if [[ "$?" == "1" ]]
 then
