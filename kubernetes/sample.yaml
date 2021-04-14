@@ -1,0 +1,69 @@
+# TASK:
+# Implement Kubernetes manifests
+---
+###
+# Deploymnent definition
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: sample-app
+  namespace: default
+  labels:
+    app: sample-app
+spec:
+  selector:
+    matchLabels:
+      app: sample-app
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: backend
+        image: postuond/backend:latest
+        ports:
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      - name: frontend
+        image: postuond/frontend:latest
+        ports:
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+###
+# Service definition
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app
+  namespace: default
+  labels:
+    app: sample-app
+spec:
+  type: NodePort
+  selector:
+    app: sample-app
+  ports:
+  - port: 80
+    protocol: TCP
+    nodePort: 31234
+    targetPort: sample-app-port
+
+---
+###
+# Ingress definition
+---
+###
+# HPA definition
