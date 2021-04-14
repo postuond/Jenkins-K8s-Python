@@ -6,6 +6,11 @@ if [[ "$?" == "1" ]]
 then
 cd /root/Jenkins-K8s-Python/charts
 helm install devopsjenkins ./sample-app
-else
+
+elif [[ "$?" == "0" ]]
+then
 helm delete devopsjenkins
+cd /root/Jenkins-K8s-Python/charts
+helm install devopsjenkins ./sample-app
+
 fi
