@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHECK=$(kubectl get pods | awk '{print $1}' | grep -e "sample-app")
+kubectl get pods | awk '{print $1}' | grep -e "sample-app"
 
 if [[ "$?" == "1" ]]
 then
