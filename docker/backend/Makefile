@@ -1,6 +1,6 @@
 .PHONY: docker docker-run clean
 
-docker: Dockerfile main.go
+docker: Dockerfile gofiles/main.go
 # TASK: Build docker image here and push image to dockerhub
 	docker build -t postuond/backend:latest .
 	docker push postuond/backend:latest
